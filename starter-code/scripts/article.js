@@ -8,12 +8,12 @@ let articles = [];
 function Article (rawDataObj) {
   // TODO: Use the JS object that is passed in to complete this constructor function:
   // Save ALL the properties of `rawDataObj` into `this`
-  this.title= title;
-  this.category= category;
-  this.author= author;
-  this.authorUrl= aurhorUrl;
-  this.publishedOn= publishedON;
-  this.body= body;
+  this.title= rawDataObj.title;
+  this.category= rawDataObj.category;
+  this.author= rawDataObj.author;
+  this.authorUrl= rawDataObj.authorUrl;
+  this.publishedOn= rawDataObj.publishedOn;
+  this.body= rawDataObj.body;
 }
 
 Article.prototype.toHtml = function() {
@@ -22,7 +22,7 @@ Article.prototype.toHtml = function() {
 
   let $newArticle = $('article.template').clone();
   /* TODO: This cloned article still has a class of template. In our modules.css stylesheet, we should give all elements with a class of template a display of none so that our template does not display in the browser. But, we also need to make sure we're not accidentally hiding our cloned article. */
-
+  $newArticle.removeClass('template');
   if (!this.publishedOn) $newArticle.addClass('draft');
   $newArticle.attr('data-category', this.category);
 
@@ -33,6 +33,13 @@ Article.prototype.toHtml = function() {
       3. article title,
       4. article body, and
       5. publication date. */
+      $newArticle.find('h1').html(this.title);    
+      $newArticle.find('.byline a').html(this.author);
+      $newArticle.find('.article-body').html(this.body);
+      $newArticle.find('.byline a').attr('href', this.authorUrl);
+      // console.log($newArticle);
+
+
 
   // REVIEW: Display the date as a relative number of 'days ago'
   $newArticle.find('time').html('about ' + parseInt((new Date() - new Date(this.publishedOn))/60/60/24/1000) + ' days ago');
@@ -47,19 +54,19 @@ rawData.sort(function(a,b) {
 
 // TODO: Refactor these for loops using the .forEach() array method.
 
-// for(let i = 0; i < rawData.length; i++) {
-//   articles.push(new Article(rawData[i]));
-// }
-
+for(let i = 0; i < rawData.length; i++) {
+  articles.push(new Article(rawData[i]));
+}
+console.log(articles);
   
-rawData.forEach(function(i, val) {
-  console.log(val)
-  // articles.push(new Article(val[i]));
-});
+// rawData.forEach(function(i, val) {
+//   console.log(val)
+//   // articles.push(new Article(val[i]));
+// });
 
 
 
-// for(let i = 0; i < articles.length; i++) {
-//   $('#articles').append(articles[i].toHtml());
-// }
+for(let i = 0; i < articles.length; i++) {
+  $('#articles').append(articles[i].toHtml());
+}
 
