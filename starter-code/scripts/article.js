@@ -8,13 +8,14 @@ let articles = [];
 function Article (rawDataObj) {
   // TODO: Use the JS object that is passed in to complete this constructor function:
   // Save ALL the properties of `rawDataObj` into `this`
-  this.title= title;
-  this.category= category;
-  this.author= author;
-  this.authorUrl= aurhorUrl;
-  this.publishedOn= publishedON;
-  this.body= body;
+  this.title= rawDataObj.title;
+  this.category= rawDataObj.category;
+  this.author= rawDataObj.author;
+  this.authorUrl= rawDataObj.aurhorUrl;
+  this.publishedOn= rawDataObj.publishedON;
+  this.body= rawDataObj.body;
 }
+
 
 Article.prototype.toHtml = function() {
   // COMMENT: What is the benefit of cloning the article? (see the jQuery docs)
