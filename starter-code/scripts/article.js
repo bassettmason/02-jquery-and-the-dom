@@ -6,7 +6,7 @@ let articles = [];
 // The capitilized name means it is a constructor funtion. It represents the current iterization of the constructor. rawDataObj represents a js object that will be constructed from the data.
 
 function Article (rawDataObj) {
-  // TODO: Use the JS object that is passed in to complete this constructor function:
+  // DONE: Use the JS object that is passed in to complete this constructor function:
   // Save ALL the properties of `rawDataObj` into `this`
   this.title= rawDataObj.title;
   this.category= rawDataObj.category;
@@ -18,26 +18,25 @@ function Article (rawDataObj) {
 
 Article.prototype.toHtml = function() {
   // COMMENT: What is the benefit of cloning the article? (see the jQuery docs)
-  // PUT YOUR RESPONSE HERE
+  // makes a deep copy of the set of matched elements, meaning that it copies the matched elements as well as all of their descendant elements and text nodes. (answer found on stack overflow)
 
   let $newArticle = $('article.template').clone();
-  /* TODO: This cloned article still has a class of template. In our modules.css stylesheet, we should give all elements with a class of template a display of none so that our template does not display in the browser. But, we also need to make sure we're not accidentally hiding our cloned article. */
+  /* DONE: This cloned article still has a class of template. In our modules.css stylesheet, we should give all elements with a class of template a display of none so that our template does not display in the browser. But, we also need to make sure we're not accidentally hiding our cloned article. */
   $newArticle.removeClass('template');
   if (!this.publishedOn) $newArticle.addClass('draft');
   $newArticle.attr('data-category', this.category);
 
-  /* TODO: Now use jQuery traversal and setter methods to fill in the rest of the current template clone with values of the properties of this particular Article instance.
+  /* DONE: Now use jQuery traversal and setter methods to fill in the rest of the current template clone with values of the properties of this particular Article instance.
     We need to fill in:
       1. author name,
       2. author url,
       3. article title,
       4. article body, and
       5. publication date. */
-      $newArticle.find('h1').html(this.title);    
-      $newArticle.find('.byline a').html(this.author);
-      $newArticle.find('.article-body').html(this.body);
-      $newArticle.find('.byline a').attr('href', this.authorUrl);
-      // console.log($newArticle);
+  $newArticle.find('h1').html(this.title);
+  $newArticle.find('.byline a').html(this.author);
+  $newArticle.find('.article-body').html(this.body);
+  $newArticle.find('.byline a').attr('href', this.authorUrl);
 
 
 
@@ -52,21 +51,24 @@ rawData.sort(function(a,b) {
   return (new Date(b.publishedOn)) - (new Date(a.publishedOn));
 });
 
-// TODO: Refactor these for loops using the .forEach() array method.
+// DONE: Refactor these for loops using the .forEach() array method.
 
-for(let i = 0; i < rawData.length; i++) {
+// for(let i = 0; i < rawData.length; i++) {
+//   articles.push(new Article(rawData[i]));
+// }
+// console.log(articles);
+
+rawData.forEach(function(val, i) {
   articles.push(new Article(rawData[i]));
-}
-console.log(articles);
-  
-// rawData.forEach(function(i, val) {
-//   console.log(val)
-//   // articles.push(new Article(val[i]));
-// });
+});
 
 
 
-for(let i = 0; i < articles.length; i++) {
-  $('#articles').append(articles[i].toHtml());
-}
+// for(let i = 0; i < articles.length; i++) {
+//   $('#articles').append(articles[i].toHtml());
+// }
+
+articles.forEach(function(val, i) {
+  $('#articles').append(articles[i].toHtml())
+});
 
