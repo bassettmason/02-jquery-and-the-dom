@@ -1,7 +1,7 @@
 'use strict';
 
 // COMMENT: How is this data utilized within our blog app? What is the structure of this data (your response should include the terms "object", "array", and "key/value pairs")?
-// PUT YOUR RESPONSE HERE
+//These are objects, we use the key vaue pairs to display the articles in the blog, by grabbing the keys to populate the values
 
 let rawData = [
   {
